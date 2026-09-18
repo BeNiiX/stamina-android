@@ -30,6 +30,8 @@ data class StaminaConfig(
     val installReferrer: String? = null,
     /** User-agent WebView si l'app le lit déjà elle-même (sinon collecté par le SDK). */
     val webviewUserAgent: String? = null,
+    /** Réservé aux wrappers (Flutter, React Native) : valeur de `extras.sdk_platform`. Défaut `android`. */
+    val sdkPlatform: String = "android",
 )
 
 data class AttributionResult(

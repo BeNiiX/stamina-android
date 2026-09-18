@@ -249,7 +249,7 @@ internal class StaminaClient(context: Context) {
         val s = signals.collect()
         val adId = config.advertisingId?.takeIf { it.isNotEmpty() && !isZeroAdId(it) } ?: s.advertisingId
         val extras = JSONObject()
-            .put("sdk_platform", "android")
+            .put("sdk_platform", config.sdkPlatform.ifEmpty { "android" })
             .put("sdk_version", BuildConfig.SDK_VERSION)
             .put("app_version", s.appVersion ?: JSONObject.NULL)
             .put("app_build", s.appBuild ?: JSONObject.NULL)
