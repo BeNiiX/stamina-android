@@ -1,0 +1,5 @@
+# Build JitPack : https://jitpack.io/#BeNiiX/stamina-android — JDK 17 requis par AGP 8.
+jdk:
+  - openjdk17
+install:
+  - ./gradlew :stamina:publishToMavenLocal -x test --no-daemon

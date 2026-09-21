@@ -2,16 +2,16 @@
 
 Une ligne à intégrer (ou zéro), zéro dépendance réseau imposée, rien à brancher : install attribué
 (Install Referrer Play Store, liens de tracking via matching), GAID, sessions, revenu par source
-d'acquisition. Spécification commune à tous les SDK : `../docs/13-SPEC-SDK.md`.
+d'acquisition. Même comportement que les SDK STAMINA iOS, React Native et Flutter (spécification et suite de conformité communes).
 
 ## Installation
 
 ```kotlin
-// settings.gradle.kts (JitPack tant que Maven Central n'est pas publié)
+// settings.gradle.kts — JitPack (tant que Maven Central n'est pas publié)
 dependencyResolutionManagement { repositories { maven("https://jitpack.io") } }
 
 // app/build.gradle.kts
-implementation("com.github.BeNiiX:stamina-android:1.0.0")   // Maven Central à venir : io.getstamina:stamina-android
+implementation("com.github.BeNiiX:stamina-android:v1.0.0")   // Maven Central à venir : io.getstamina:stamina-android:1.0.0
 ```
 
 minSdk 24. Dépendances : `installreferrer`, `play-services-ads-identifier`, `kotlinx-coroutines`,
@@ -100,3 +100,7 @@ scripts/test.sh    # serveur de conformité + ./gradlew :stamina:testDebugUnitTe
 Tests : 5 unitaires (`EventsTest`) + 9 scénarios de conformité (`ConformanceTest`, faux signaux, vrai
 cycle de vie d'activité Robolectric). L'Install Referrer réel n'existe que pour une installation faite
 par le Play Store (piste de test interne) : un APK sideloadé donne `null`.
+
+## Licence
+
+MIT — voir `LICENSE`.
