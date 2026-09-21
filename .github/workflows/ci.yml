@@ -13,7 +13,7 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
+      # Le SDK Android est préinstallé sur ubuntu-latest (ANDROID_HOME défini) ; AGP télécharge le reste.
       - name: Unit tests (conformance scenarios skip without the mock server)
         run: ./gradlew :stamina:testDebugUnitTest --no-daemon --console=plain
       - name: Publishable artifact
