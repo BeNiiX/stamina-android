@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0 — 2026-11-06
+
+- `extras.environment` envoyé avec l'install : `production`, `debug` (build débogable) ou `simulator`. Le
+  dashboard ne compte que la production. Les pistes de test du Play Store ne sont pas détectables : elles
+  comptent comme production.
+
 ## 1.0.0 — 2026-09-21
 
 Première version publique.

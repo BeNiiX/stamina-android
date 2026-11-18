@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "io.getstamina"
-version = "1.0.0"
+version = "1.1.0"
 
 android {
     namespace = "io.getstamina.sdk"

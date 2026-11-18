@@ -78,6 +78,7 @@ class ConformanceTest {
         assertEquals("android", extras.getString("sdk_platform"))
         assertEquals(BuildConfig.SDK_VERSION, extras.getString("sdk_version"))
         assertEquals("1.0.0", extras.getString("app_version"))
+        assertEquals("production", extras.getString("environment"))
         assertEquals(signals.adId, b.getString("gaid"))
         assertEquals("utm_source=stamina&slug=conf&click_id=c1", b.getString("install_referrer"))
         assertTrue(b.isNull("adservices_token"))

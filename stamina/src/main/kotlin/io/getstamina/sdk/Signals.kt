@@ -3,6 +3,7 @@
 package io.getstamina.sdk
 
 import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Build
@@ -36,6 +37,8 @@ internal data class CollectedSignals(
     var timezone: String? = null,
     var appVersion: String? = null,
     var appBuild: String? = null,
+    /** « production », « debug » ou « simulator » : le dashboard ne compte que la production. */
+    var environment: String? = null,
     var bundleId: String? = null,
     var webViewUserAgent: String? = null,
     var vendorId: String? = null,
@@ -77,6 +80,7 @@ internal class DeviceSignals(context: Context) : SignalsProviding {
             @Suppress("DEPRECATION")
             s.appBuild = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) info.longVersionCode else info.versionCode.toLong()).toString()
         } catch (_: PackageManager.NameNotFoundException) {}
+        s.environment = buildEnvironment()
         s.bundleId = context.packageName
         s.webViewUserAgent = withTimeoutOrNull(4_000) { withContext(Dispatchers.IO) { runCatching { WebSettings.getDefaultUserAgent(context) }.getOrNull() } }
         s.vendorId = runCatching { Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID) }.getOrNull()
@@ -102,6 +106,20 @@ internal class DeviceSignals(context: Context) : SignalsProviding {
     }
 
     /** Referrer posé par le Play Store à l'installation (slug + click_id du lien de tracking). */
+    /**
+     * Origine du build. Les pistes de test du Play Store (interne, fermée) sont des builds release
+     * signés par Google : rien ne les distingue de la production côté appareil.
+     */
+    private fun buildEnvironment(): String {
+        val emulator = Build.FINGERPRINT.startsWith("generic") || Build.FINGERPRINT.contains("emulator") ||
+            Build.MODEL.contains("Emulator") || Build.MODEL.contains("Android SDK built for") ||
+            Build.HARDWARE.contains("goldfish") || Build.HARDWARE.contains("ranchu") ||
+            Build.PRODUCT.contains("sdk_gphone")
+        if (emulator) return "simulator"
+        val debuggable = context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
+        return if (debuggable) "debug" else "production"
+    }
+
     private suspend fun readInstallReferrer(): String? = suspendCancellableCoroutine { cont ->
         val client = InstallReferrerClient.newBuilder(context).build()
         var settled = false

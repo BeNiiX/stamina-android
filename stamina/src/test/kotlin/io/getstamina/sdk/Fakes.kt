@@ -14,7 +14,7 @@ internal class FakeSignals : SignalsProviding {
     override suspend fun collect() = CollectedSignals(
         osVersion = "15", deviceModel = "SM-S918B", manufacturer = "samsung",
         screenW = 412, screenH = 915, screenScale = 2.625, colorScheme = "light",
-        locale = "fr-FR", timezone = "Europe/Paris", appVersion = "1.0.0", appBuild = "1", bundleId = "io.getstamina.conformance",
+        locale = "fr-FR", timezone = "Europe/Paris", appVersion = "1.0.0", appBuild = "1", environment = "production", bundleId = "io.getstamina.conformance",
         webViewUserAgent = "Mozilla/5.0 (conformance WebView)", vendorId = "ANDROID-ID-CONFORMANCE",
         installReferrer = installReferrer, attStatus = att, advertisingId = advertisingId(),
     )

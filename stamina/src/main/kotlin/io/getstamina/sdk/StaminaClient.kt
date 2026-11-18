@@ -253,6 +253,7 @@ internal class StaminaClient(context: Context) {
             .put("sdk_version", BuildConfig.SDK_VERSION)
             .put("app_version", s.appVersion ?: JSONObject.NULL)
             .put("app_build", s.appBuild ?: JSONObject.NULL)
+            .put("environment", s.environment ?: JSONObject.NULL)
             .put("att_status", s.attStatus.wire)
         val payload = JSONObject()
             .put("device_user_id", currentDeviceUserId())
@@ -431,7 +432,7 @@ internal class StaminaClient(context: Context) {
             "screen_w" to s.screenW, "screen_h" to s.screenH, "screen_scale" to s.screenScale, "color_scheme" to s.colorScheme,
             "locale" to s.locale, "timezone" to s.timezone, "webview_user_agent" to s.webViewUserAgent,
             "android_id" to s.vendorId, "install_referrer" to s.installReferrer, "has_gaid" to (s.advertisingId != null),
-            "app_version" to s.appVersion, "app_build" to s.appBuild,
+            "app_version" to s.appVersion, "app_build" to s.appBuild, "environment" to s.environment,
         )
     }
 
